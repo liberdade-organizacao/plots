@@ -6,6 +6,19 @@ function apply(f, x) {
     return o;
 }
 
+function range(from, to, steps) {
+    var outlet = [];
+    var step = (to-from) / steps;
+    var value = from;
+
+    for (var i = 0; i < steps; i++) {
+        outlet[i] = value;
+        value += step;
+    }
+
+    return outlet;
+}
+
 function plot(where, x, f) {
     // TODO Implement me!
 }
