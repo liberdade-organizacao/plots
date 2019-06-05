@@ -8,7 +8,6 @@ function compare_pairwise(v, f) {
     return o;
 }
 
-
 function max(v) {
     return compare_pairwise(v, function(a, b) {
         return a > b;
