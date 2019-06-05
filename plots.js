@@ -1,3 +1,26 @@
+function compare_pairwise(v, f) {
+    var o = v[0];
+
+    for (var i = 1; i < v.length; i++) {
+        o = (f(o, v[i]))? o : v[i];
+    }
+
+    return o;
+}
+
+
+function max(v) {
+    return compare_pairwise(v, function(a, b) {
+        return a > b;
+    });
+}
+
+function min(v) {
+    return compare_pairwise(v, function(a, b) {
+        return a < b;
+    });
+}
+
 function apply(f, x) {
     var o = [];
     for (var i = 0; i < x.length; i++) {
