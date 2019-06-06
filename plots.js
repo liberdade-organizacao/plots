@@ -50,14 +50,15 @@ plots.range = function(from, to, steps) {
 
 plots.scale = function(x, y, w, h) {
     var outlet = [];
-    var dy = plots.max(y) - plots.min(y);
-    var dx = x[x.length-1] - x[0];
+    var min_x = plots.min(x);
+    var max_x = plots.max(x);
+    var min_y = plots.min(y);
+    var max_y = plots.max(y);
 
     for (var i = 0; i < x.length; i++) {
-        // TODO turn these points into canvas points
-        o[i] = {
-            x: 0,
-            y: 0
+        outlet[i] = {
+            x: plots.map(x[i], min_x, max_x, 0, w),
+            y: plots.map(y[i], min_y, max_y, 0, h)
         };
     }
 
@@ -65,11 +66,7 @@ plots.scale = function(x, y, w, h) {
 }
 
 plots.plot = function(where, x, f) {
-    // TODO Implement me!
     var canvas = document.getElementById(where);
-    var f_x = plots.apply(f, x);
-    var width = canvas.width;
-    var height = canvas.height;
-    var points = plots.scale(x, f_x, width, height);
-    debugger;
+    var points = plots.scale(x, plots.apply(f, x), canvas.width, canvas.height);
+    // TODO draw points in canvas
 }
