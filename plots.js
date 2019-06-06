@@ -1,4 +1,6 @@
-function compare_pairwise(v, f) {
+var plots = { };
+
+plots.compare_pairwise = function(v, f) {
     var o = v[0];
 
     for (var i = 1; i < v.length; i++) {
@@ -8,19 +10,19 @@ function compare_pairwise(v, f) {
     return o;
 }
 
-function max(v) {
-    return compare_pairwise(v, function(a, b) {
+plots.max = function(v) {
+    return plots.compare_pairwise(v, function(a, b) {
         return a > b;
     });
 }
 
-function min(v) {
-    return compare_pairwise(v, function(a, b) {
+plots.min = function(v) {
+    return plots.compare_pairwise(v, function(a, b) {
         return a < b;
     });
 }
 
-function apply(f, x) {
+plots.apply = function(f, x) {
     var o = [];
     for (var i = 0; i < x.length; i++) {
         o[i] = f(x[i]);
@@ -28,7 +30,7 @@ function apply(f, x) {
     return o;
 }
 
-function range(from, to, steps) {
+plots.range = function(from, to, steps) {
     var outlet = [];
     var step = (to-from) / steps;
     var value = from;
@@ -41,9 +43,9 @@ function range(from, to, steps) {
     return outlet;
 }
 
-function scale(x, y, w, h) {
+plots.scale = function(x, y, w, h) {
     var outlet = [];
-    var dy = max(y) - min(y);
+    var dy = plots.max(y) - plots.min(y);
     var dx = x[x.length-1] - x[0];
 
     for (var i = 0; i < x.length; i++) {
@@ -57,12 +59,12 @@ function scale(x, y, w, h) {
     return outlet;
 }
 
-function plot(where, x, f) {
+plots.plot = function(where, x, f) {
     // TODO Implement me!
     var canvas = document.getElementById(where);
-    var f_x = apply(f, x);
+    var f_x = plots.apply(f, x);
     var width = canvas.width;
     var height = canvas.height;
-    var points = scale(x, f_x, width, height);
+    var points = plots.scale(x, f_x, width, height);
     debugger;
 }
