@@ -22,22 +22,16 @@ describe('math functions', function() {
     });
 
     describe('map', function() {
-        it('should not map invalid values', function(done) {
-            var result = plots.map(1, 2, 'oh yeah', null, {
-                value: 1,
-                what: 'i should not work'
-            });
-            chai.assert.equal(null, result);
-        });
-
         it('should map accordingly', function(done) {
-            var result = plots.map(5, 1, 10, 1, 100);
+            var result = plots.map(5, 0, 10, 0, 100);
             chai.assert.equal(50, result);
+            done();
         });
 
         it('should map ranges in opposite directions', function(done) {
-            var result = plots.map(5, 1, 10, -12, -1);
+            var result = plots.map(5, 0, 10, -12, 0);
             chai.assert.equal(-6, result);
+            done();
         });
     });
 });

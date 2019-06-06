@@ -22,6 +22,11 @@ plots.min = function(v) {
     });
 }
 
+plots.map = function(x, in_min, in_max, out_min, out_max) {
+    // thanks arduino
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 plots.apply = function(f, x) {
     var o = [];
     for (var i = 0; i < x.length; i++) {
