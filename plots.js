@@ -106,11 +106,35 @@ plots.scale = function(x, y, w, h) {
     for (var i = 0; i < x.length; i++) {
         outlet[i] = {
             x: plots.map(x[i], min_x, max_x, 0, w),
-            y: plots.map(y[i], min_y, max_y, 0, h)
+            y: plots.map(y[i], min_y, max_y, h, 0)
         };
     }
 
     return outlet;
+}
+
+/**
+ * draws points in the canvas
+ * @param canvas a HTML canvas object
+ * @param points the points to be drawn on screen
+ */
+plots.draw = function(canvas, points) {
+    var context = canvas.getContext("2d");
+    var lastPoint = points[0];
+
+    context.lineCap = "round";
+    context.lineWidth = 2;
+    context.strokeStyle = "#AEAEAE";
+
+    for (var i = 1; i < points.length; i++) {
+        var currentPoint = points[i];
+
+        context.moveTo(lastPoint.x, lastPoint.y);
+        context.lineTo(currentPoint.x, currentPoint.y);
+        context.stroke();
+
+        lastPoint = currentPoint;
+    }
 }
 
 /**
@@ -122,5 +146,5 @@ plots.scale = function(x, y, w, h) {
 plots.plot = function(where, x, f) {
     var canvas = document.getElementById(where);
     var points = plots.scale(x, plots.apply(f, x), canvas.width, canvas.height);
-    // TODO draw points in canvas
+    plots.draw(canvas, points);
 }
